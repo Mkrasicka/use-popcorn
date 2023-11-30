@@ -126,15 +126,6 @@ export default function App() {
     setWatched((watched) => watched.filter((movie) => movie.imdbID !== id));
   }
 
-  useEffect(function () {
-    document.addEventListener("keydown", function (e) {
-      if (e.keyCode === 8) {
-        handleCloseMovieDetails();
-        console.log("escape");
-      }
-    });
-  }, []);
-
   return (
     <>
       <Navbar>
@@ -308,6 +299,24 @@ function MovieDetails({
     Director: director,
     Genre: genre,
   } = movie;
+
+  useEffect(
+    function () {
+      function callback(e) {
+        if (e.code === "Escape") {
+          onHandleCloseMovieDetails();
+          // console.log("escape");
+        }
+      }
+
+      document.addEventListener("keydown", callback);
+
+      return function () {
+        document.removeEventListener("keydown", callback);
+      };
+    },
+    [onHandleCloseMovieDetails]
+  );
 
   function handleAdd() {
     const newMovie = {
