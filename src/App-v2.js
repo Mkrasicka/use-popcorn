@@ -334,6 +334,15 @@ function MovieDetails({
     Genre: genre,
   } = movie;
 
+  const countRef = useRef(0);
+
+  useEffect(
+    function () {
+      if (userRating) countRef.current++;
+    },
+    [userRating]
+  );
+
   useEffect(
     function () {
       function callback(e) {
@@ -361,6 +370,7 @@ function MovieDetails({
       imdbRating: Number(imdbRating),
       runtime: Number(runtime.split("").at(0)),
       userRating,
+      countRatingDecission: countRef.current,
     };
 
     onAddMovie(newMovie);
