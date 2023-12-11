@@ -3,7 +3,7 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 // import StarRating from "./StarRating";
 // import { useState } from "react";
-import App from "./App-v2";
+import App from "./App-v3";
 
 // function Test() {
 //   const [movieRating, setMovieRating] = useState(0);
