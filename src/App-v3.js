@@ -169,21 +169,11 @@ function Logo() {
 function Search({ query, setQuery }) {
   const inputEl = useRef(null);
 
-  useEffect(
-    function () {
-      function callback(e) {
-        if (document.activeElement === inputEl.current) return;
-        if (e.code === "Enter") {
-          inputEl.current.focus();
-          setQuery("");
-        }
-      }
-      document.addEventListener("keydown", callback);
-      // clean up after the event
-      return () => document.addEventListener("keydown", callback);
-    },
-    [setQuery]
-  );
+  useKey(13, function () {
+    if (document.activeElement === inputEl.current) return;
+    inputEl.current.focus();
+    setQuery("");
+  });
 
   return (
     <input
@@ -286,7 +276,7 @@ function MovieDetails({
     [userRating]
   );
 
-  useKey(onHandleCloseMovieDetails, 8);
+  useKey(8, onHandleCloseMovieDetails);
 
   function handleAdd() {
     const newMovie = {
